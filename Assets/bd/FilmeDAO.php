@@ -34,5 +34,23 @@ class FilmeDAO
         $stmt->execute();
     }
 
-    
+    public static function listarFilmes()
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "SELECT * FROM filme";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute();
+        $filme = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $filme;
+    }
+
+    public static function listarFilmesComOscar()
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "SELECT * FROM filme WHERE oscar > 0";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute();
+        $filmeComOscar = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $filmeComOscar;
+    }
 }

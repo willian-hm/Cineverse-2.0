@@ -2,7 +2,7 @@
 require_once "ConexaoBD.php";
 require "Util.php";
 
-class serieDAO
+class SerieDAO
 {
     public static function cadastrarSerie($dados)
     {
@@ -37,5 +37,15 @@ class serieDAO
 
 
         $stmt->execute();
+    }
+
+    public static function listarSeries()
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "SELECT * FROM serie";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute();
+        $serie = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $serie;
     }
 }

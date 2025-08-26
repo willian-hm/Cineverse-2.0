@@ -1,15 +1,3 @@
-<!--
-
-- tirar slider por outro (https://www.youtube.com/watch?v=BpzyuuPIEaQ&t=246s)
-
-- listar filmes
-
-- listar séries
-
-- Oscar
-
--->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -44,50 +32,49 @@
     </nav>
   </header>
 
-  <div class="slider">
+  <div id="slider" class="slider">
+
     <div class="slides">
       <input type="radio" name="radio-btn" id="radio1">
-      <input type="radio" name="radio-btn" id="radio1">
-      <input type="radio" name="radio-btn" id="radio1">
-      <input type="radio" name="radio-btn" id="radio1">
+      <input type="radio" name="radio-btn" id="radio2">
+      <input type="radio" name="radio-btn" id="radio3">
+      <input type="radio" name="radio-btn" id="radio4">
 
-      <div class="slide-first">
-        <img src="" alt="img 1">
+      <div class="slide first">
+        <img src="https://ingresso-a.akamaihd.net/prd/img/movie/pecadores/0879a4f3-0175-4834-b04f-67074a78749a.webp"
+          alt="img 1">
       </div>
       <div class="slide">
-        <img src="" alt="img 2">
+        <img
+          src="https://ingresso-a.akamaihd.net/prd/img/movie/como-treinar-o-seu-dragao-2025/4b067f1c-f99f-4c46-bd2d-23539b28b76a.webp"
+          alt="img 2">
       </div>
       <div class="slide">
-        <img src="" alt="img 3">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOIuF8lZdmhJPvLdvqDMeU1Uv5NvSJzHWdg&s"
+          alt="img 3">
       </div>
       <div class="slide">
-        <img src="" alt="img 4">
+        <img
+          src="https://ingresso-a.akamaihd.net/prd/img/movie/quarteto-fantastico-primeiros-passos/bb8b9147-a76c-4435-92db-4ce024603f6f.webp"
+          alt="img 4">
       </div>
     </div>
-
+    <div class="navigation-auto">
+      <div class="auto-btn1"></div>
+      <div class="auto-btn2"></div>
+      <div class="auto-btn3"></div>
+      <div class="auto-btn4"></div>
+    </div>
+    <div class="manual-navigation">
+      <label for="radio1" class="manual-btn"></label>
+      <label for="radio2" class="manual-btn"></label>
+      <label for="radio3" class="manual-btn"></label>
+      <label for="radio4" class="manual-btn"></label>
+    </div>
   </div>
 
-  <section id="slider" class="slider">
-    <div class="slider-content">
-      <h1 id="slider-title">Duna: Parte 2</h1>
-    </div>
-  </section>
-
   <section>
-    <h2>🚀 Lançamentos</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel"></div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section>
-    <h2>🏆 Filmes que ganharam Oscar</h2>
+    <h2>Filmes com Oscar</h2>
     <div class="carrossel-container">
       <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
         &#10094;
@@ -105,10 +92,11 @@
       <img id="modal-img" src="" alt="Capa do Filme" />
       <h2 id="modal-titulo"></h2>
       <p id="modal-info"></p>
+      <p id="modal-categoria"></p>
+      <p id="modal-temporadas"></p>
       <p id="modal-diretor"></p>
       <p id="modal-atores"></p>
-      <p id="modal-sinopse"></p>
-      <a id="modal-premio" href="#"></a>
+      <p id="modal-premio"></p>
       <div class="botoes">
         <a id="link-trailer" href="#" target="_blank">📺 Ver trailer</a>
       </div>
@@ -117,76 +105,9 @@
 
   <footer>&copy; 2025 Cineverse. Todos os direitos reservados.</footer>
 
+  <script src="slider.js"></script>
+
   <script>
-    const destaques = [
-        {
-        titulo: "Duna: Parte 2",
-        imagem:
-          "https://ingresso-a.akamaihd.net/prd/img/movie/duna-parte-2/04a173f7-6d58-49d3-91de-20f6a07e9513.webp",
-        link: "https://www.youtube.com/watch?v=Way9Dexny3w",
-      },
-      {
-        titulo: "Oppenheimer",
-        imagem:
-          "https://www.thebanner.org/sites/default/files/styles/article_detail_header/public/2023-08/MM-1207%20Oppenheimer.jpg?itok=0U-jOPJC",
-        link: "https://www.youtube.com/watch?v=F3OxA9Cz17A&t=21s",
-      },
-      {
-        titulo: "Tudo em Todo Lugar ao Mesmo Tempo",
-        imagem:
-          "https://resenhandosonhos.com/wp-content/uploads/2023/01/tudo-em-todo-o-lugar-ao-mesmo-tempo-capa-920x530.png",
-        link: "https://www.youtube.com/watch?v=kULcXm9V7aY",
-      },
-    ];
-    const filmesLancamento = [
-      {
-        titulo: "Sentimental Value",
-        tipo: "Filme",
-        ano: 2025,
-        classificacao: "16 anos",
-        sinopse: "Duas irmãs se reconectam com seu pai cineasta após a morte da mãe, explorando traumas familiares e reconciliação.",
-        imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMF3DoXj2jL06TzaLS2HhrtfQQS-W-0blMIA&s",
-        imagemModal: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgaj88ruXMsz3cqBtbVx1aMrsbYqiqJCd_xg&s",
-        diretor: "Joachim Trier",
-        atores: "Renate Reinsve, Stellan Skarsgård, Elle Fanning",
-        episodios: "Filme único",
-        premios: "https://decider.com/2025/05/22/joachim-trier-sentimental-value-movie-review-cannes-film-festival-2025/",
-        trailer: "https://www.youtube.com/watch?v=example"
-      },
-    ]
-    const filmesOscar = [
-      {
-        titulo: "Titanic",
-        ano: 1997,
-        classificacao: "12 anos",
-        sinopse: "O romance de Jack e Rose a bordo do famoso navio Titanic.",
-        imagem: "https://upload.wikimedia.org/wikipedia/pt/2/22/Titanic_poster.jpg",
-        imagemModal: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx8RrMCgLd_qQx8hJLc2XWpugzvYqrBTeBdg&s",
-        diretor: "James Cameron",
-        atores: "Leonardo DiCaprio, Kate Winslet",
-        episodios: "Filme único",
-        premios: "11 Oscars, incluindo Melhor Filme",
-        trailer: "https://www.youtube.com/watch?v=CHekzSiZjrY"
-      }
-    ];
-
-
-    const slider = document.getElementById("slider");
-    const sliderTitle = document.getElementById("slider-title");
-    let slideAtual = 0;
-
-    slider.style.backgroundImage = `url('${destaques[0].imagem}')`;
-    sliderTitle.textContent = destaques[0].titulo;
-
-    function trocarSlide() {
-      slideAtual = (slideAtual + 1) % destaques.length;
-      const destaque = destaques[slideAtual];
-      slider.style.backgroundImage = `url('${destaque.imagem}')`;
-      sliderTitle.textContent = destaque.titulo;
-    }
-
-    setInterval(trocarSlide, 5000);
-
     function toggleMenu() {
       const menu = document.getElementById("menuSuspenso");
       menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -200,23 +121,61 @@
         menu.style.display = "none";
       }
     });
+  </script>
+
+  <script>
+
+    const filmesOscar = [
+      <?php
+      require_once 'Assets/bd/FilmeDAO.php';
+
+      $filmesComOscars = FilmeDAO::listarFilmesComOscar();
+
+      foreach ($filmesComOscars as $filmeComOscar) {
+        ?>
+            {
+          titulo: "<?= $filmeComOscar['titulo'] ?>",
+          ano: <?= $filmeComOscar['ano'] ?>,
+          classificacao: "<?= $filmeComOscar['idclassificacao'] ?>",
+          categoria: "<?= $filmeComOscar['idcategoria'] ?>",
+          imagem: "Assets/bd/uploads/"+"<?= $filmeComOscar['imagem'] ?>",
+          diretor: "<?= $filmeComOscar['diretor'] ?>",
+          elenco: "<?= $filmeComOscar['elenco'] ?>",
+          oscar: <?= $filmeComOscar['oscar'] ?>,
+          trailer: "<?= $filmeComOscar['trailer'] ?>"
+        },
+        <?php
+      }
+      ?>
+    ];
 
     function abrirModal(filme) {
-      document.getElementById("modal-img").src = filme.imagemModal;
+      document.getElementById("modal-img").src = filme.imagem;
       document.getElementById("modal-titulo").textContent = filme.titulo;
       document.getElementById(
         "modal-info"
       ).textContent = `${filme.ano} • ${filme.classificacao}`;
+      document.getElementById("modal-categoria").textContent =
+        "Categoria: " + filme.categoria;
+      if (filme.temporadas !== undefined && filme.episodios !== undefined) {
+        document.getElementById("modal-temporadas").textContent =
+          `Temporadas: ${filme.temporadas} • Episódios: ${filme.episodios}`;
+      } else {
+        document.getElementById("modal-temporadas").textContent = "";
+      }
       document.getElementById("modal-diretor").textContent =
         "Diretor: " + filme.diretor;
       document.getElementById("modal-atores").textContent =
-        "Atores Principais: " + filme.atores;
-      document.getElementById("modal-sinopse").textContent =
-        "Sinopse: " + filme.sinopse;
-      if (filme.premios !== "") {
-        document.getElementById("modal-premio").textContent =
-          "Premios e indicações";
-        document.getElementById("modal-premio").href = filme.premios;
+        "Elenco: " + filme.elenco;
+      if (filme.oscar !== 0) {
+        if (filme.oscar == 1) {
+          document.getElementById("modal-premio").textContent =
+            "Premios e indicações: " + filme.oscar + " Oscar";
+        }
+        if (filme.oscar > 1) {
+          document.getElementById("modal-premio").textContent =
+            "Premios e indicações: " + filme.oscar + " Óscares";
+        }
       }
       document.getElementById("link-trailer").href = filme.trailer;
       document.getElementById("modal").style.display = "flex";
@@ -224,7 +183,6 @@
 
     function fecharModal() {
       document.getElementById("modal").style.display = "none";
-      filme.premios = "";
     }
 
     function scrollCarrossel(botao, direcao) {
@@ -255,8 +213,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      gerarFilmes("section:nth-of-type(2)", filmesLancamento);
-      gerarFilmes("section:nth-of-type(3)", filmesOscar);
+      gerarFilmes("section:nth-of-type(1)", filmesOscar);
     });
   </script>
 </body>

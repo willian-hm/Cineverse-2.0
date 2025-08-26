@@ -49,7 +49,7 @@
                     $classificacaos = ClassificacaoDAO::listar();
                     foreach ($classificacaos as $classificacao) {
                         ?>
-                        <option value="<?= $classificacao['idclassificacao'] ?>"><?= $classificacao['nomeclassificacao'] ?></option>
+                        <option value="<?= $classificacao['idclassificacao'] ?>"><?= $classificacao['nomeclassificacao']?></option>
                         <?php
                     }
                     ?>
@@ -62,7 +62,7 @@
                     $categorias = CategoriaDAO::listar();
                     foreach ($categorias as $categoria) {
                         ?>
-                        <option value="<?= $categoria['idcategoria'] ?>"><?= $categoria['nomecategoria'] ?></option>
+                        <option value="<?= $categoria['idcategoria'] ?>"><?= $categoria['nomecategoria']?></option>
                         <?php
                     }
                     ?>
