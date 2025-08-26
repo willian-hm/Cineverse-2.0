@@ -33,13 +33,19 @@
 
   <select id="genreSelect">
     <option value="Todos">Todos</option>
-    <option value="AcaoAventura">Ação & Aventura</option>
-    <option value="FiccaoCientifica">Ficção Científica</option>
-    <option value="Drama">Drama</option>
+    <?php
+    require_once "Assets/bd/CategoriaDAO.php";
+    $categorias = CategoriaDAO::listar();
+    foreach ($categorias as $categoria) {
+      ?>
+      <option value="<?= $categoria['idcategoria'] ?>"><?= $categoria['nomecategoria'] ?></option>
+      <?php
+    }
+    ?>
   </select>
 
-  <section class="AcaoAventura">
-    <h2>🗺 Ação & Aventura</h2>
+  <section class="Todos">
+    <h2>Todos os Filmes</h2>
     <div class="carrossel-container">
       <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
         &#10094;
@@ -53,8 +59,8 @@
     </div>
   </section>
 
-  <section class="FiccaoCientifica">
-    <h2>🥼 Ficção Científica</h2>
+  <section class="1">
+    <h2>Terror</h2>
     <div class="carrossel-container">
       <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
         &#10094;
@@ -68,8 +74,83 @@
     </div>
   </section>
 
-  <section class="Drama">
-    <h2>😭 Drama</h2>
+  <section class="2">
+    <h2>Drama</h2>
+    <div class="carrossel-container">
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
+        &#10094;
+      </button>
+      <div class="carrossel">
+
+      </div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
+        &#10095;
+      </button>
+    </div>
+  </section>
+
+  <section class="3">
+    <h2>Comédia</h2>
+    <div class="carrossel-container">
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
+        &#10094;
+      </button>
+      <div class="carrossel">
+
+      </div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
+        &#10095;
+      </button>
+    </div>
+  </section>
+
+  <section class="4">
+    <h2>Aventura</h2>
+    <div class="carrossel-container">
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
+        &#10094;
+      </button>
+      <div class="carrossel">
+
+      </div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
+        &#10095;
+      </button>
+    </div>
+  </section>
+
+  <section class="5">
+    <h2>Ficção</h2>
+    <div class="carrossel-container">
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
+        &#10094;
+      </button>
+      <div class="carrossel">
+
+      </div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
+        &#10095;
+      </button>
+    </div>
+  </section>
+
+  <section class="6">
+    <h2>Ação</h2>
+    <div class="carrossel-container">
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
+        &#10094;
+      </button>
+      <div class="carrossel">
+
+      </div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
+        &#10095;
+      </button>
+    </div>
+  </section>
+
+  <section class="7">
+    <h2>Romance</h2>
     <div class="carrossel-container">
       <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
         &#10094;
@@ -89,10 +170,11 @@
       <img id="modal-img" src="" alt="Capa do Filme" />
       <h2 id="modal-titulo"></h2>
       <p id="modal-info"></p>
+      <p id="modal-categoria"></p>
+      <p id="modal-temporadas"></p>
       <p id="modal-diretor"></p>
       <p id="modal-atores"></p>
-      <p id="modal-sinopse"></p>
-      <a id="modal-premio" href="#"></a>
+      <p id="modal-premio"></p>
       <div class="botoes">
         <a id="link-trailer" href="#" target="_blank">📺 Ver trailer</a>
       </div>
@@ -100,6 +182,22 @@
   </div>
 
   <footer id="footer">&copy; 2025 Cineverse. Todos os direitos reservados.</footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menuSuspenso");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (event) {
+      const menu = document.getElementById("menuSuspenso");
+      const icon = document.querySelector(".icone-usuario");
+
+      if (!icon.contains(event.target) && !menu.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
 
   <script>
     const select = document.getElementById('genreSelect');
@@ -128,85 +226,57 @@
       }
     });
 
-    const filmesAcao = [
-      {
-        titulo: "Indiana Jones e os Caçadores da Arca Perdida",
-        ano: 1981,
-        classificacao: "12 anos",
-        sinopse: "O arqueólogo Indiana Jones precisa impedir que nazistas consigam a Arca da Aliança.",
-        imagem: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTfzBLlHpWlDVIJeuRiarxcjawNdZilGtoUkQ2i_A08-vOjPk29kUq2KmgBoW-HbSc5w_JSQAvBpcI44wS2B8yp872dnjvD0hi_o6lcsQ",
-        imagemModal: "https://i.ytimg.com/vi/8A-yxXlmGcM/maxresdefault.jpg",
-        diretor: "Steven Spielberg",
-        atores: "Harrison Ford, Karen Allen, Paul Freeman",
-        episodios: "Filme único",
-        premios: "https://www.imdb.com/title/tt0082971/awards",
-        trailer: "https://www.youtube.com/watch?v=XkkzKHCx154"
-      },
-    ];
+    const filmes = [
+      <?php
+      require_once 'Assets/bd/FilmeDAO.php';
 
-    const filmesFiccao = [
-      {
-        titulo: "Interestelar",
-        ano: 2014,
-        classificacao: "12 anos",
-        sinopse: "Um grupo de astronautas viaja por um buraco de minhoca em busca de um novo lar para a humanidade.",
-        imagem: "https://estantedasala.com/wp-content/uploads/2014/11/interstellar.jpg",
-        imagemModal: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm69TbeLGdS43Ir19Eniv4UrSIfhvv-HxGIw&s",
-        diretor: "Christopher Nolan",
-        atores: "Matthew McConaughey, Anne Hathaway, Jessica Chastain",
-        episodios: "Filme único",
-        premios: "https://www.imdb.com/title/tt0816692/awards",
-        trailer: "https://www.youtube.com/watch?v=zSWdZVtXT7E"
-      },
-    ];
+      $filmes = FilmeDAO::listarFilmes();
 
-    const filmesDrama = [
-      {
-        titulo: "A Espera de um Milagre",
-        ano: 1999,
-        classificacao: "16 anos",
-        sinopse: "Um guarda de prisão desenvolve uma conexão especial com um prisioneiro com poderes misteriosos.",
-        imagem: "https://br.web.img2.acsta.net/medias/nmedia/18/91/66/66/20156966.jpg",
-        imagemModal: "https://aventurasnahistoria.com.br/media/uploads/2024/04/a-espera-de-um-milagre.jpg",
-        diretor: "Frank Darabont",
-        atores: "Tom Hanks, Michael Clarke Duncan",
-        episodios: "Filme único",
-        premios: "https://www.imdb.com/title/tt0120689/awards",
-        trailer: "https://www.youtube.com/watch?v=Ki4haFrqSrw"
-      },
-    ];
-
-
-    function toggleMenu() {
-      const menu = document.getElementById("menuSuspenso");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-
-    window.addEventListener("click", function (event) {
-      const menu = document.getElementById("menuSuspenso");
-      const icon = document.querySelector(".icone-usuario");
-
-      if (!icon.contains(event.target) && !menu.contains(event.target)) {
-        menu.style.display = "none";
+      foreach ($filmes as $filme) {
+        ?>
+                  {
+          titulo: "<?= $filme['titulo'] ?>",
+          ano: <?= $filme['ano'] ?>,
+          classificacao: "<?= $filme['idclassificacao'] ?>",
+          categoria: "<?= $filme['idcategoria'] ?>",
+          imagem: "Assets/bd/uploads/" + "<?= $filme['imagem'] ?>",
+          diretor: "<?= $filme['diretor'] ?>",
+          elenco: "<?= $filme['elenco'] ?>",
+          oscar: <?= $filme['oscar'] ?>,
+          trailer: "<?= $filme['trailer'] ?>"
+        },
+        <?php
       }
-    });
+      ?>
+    ];
 
     function abrirModal(filme) {
-      document.getElementById("modal-img").src = filme.imagemModal;
+      document.getElementById("modal-img").src = filme.imagem;
       document.getElementById("modal-titulo").textContent = filme.titulo;
       document.getElementById(
         "modal-info"
       ).textContent = `${filme.ano} • ${filme.classificacao}`;
+      document.getElementById("modal-categoria").textContent =
+        "Categoria: " + filme.categoria;
+      if (filme.temporadas !== undefined && filme.episodios !== undefined) {
+        document.getElementById("modal-temporadas").textContent =
+          `Temporadas: ${filme.temporadas} • Episódios: ${filme.episodios}`;
+      } else {
+        document.getElementById("modal-temporadas").textContent = "";
+      }
       document.getElementById("modal-diretor").textContent =
         "Diretor: " + filme.diretor;
       document.getElementById("modal-atores").textContent =
-        "Atores Principais: " + filme.atores;
-      document.getElementById("modal-sinopse").textContent =
-        "Sinopse: " + filme.sinopse;
-      if (filme.premios !== "") {
-        document.getElementById("modal-premio").textContent =
-          "Premios e indicações";
-        document.getElementById("modal-premio").href = filme.premios;
+        "Elenco: " + filme.elenco;
+      if (filme.oscar !== 0) {
+        if (filme.oscar == 1) {
+          document.getElementById("modal-premio").textContent =
+            "Premios e indicações: " + filme.oscar + " Oscar";
+        }
+        if (filme.oscar > 1) {
+          document.getElementById("modal-premio").textContent =
+            "Premios e indicações: " + filme.oscar + " Óscares";
+        }
       }
       document.getElementById("link-trailer").href = filme.trailer;
       document.getElementById("modal").style.display = "flex";
@@ -243,10 +313,162 @@
       });
     }
 
+    function gerarFilmes1(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 1) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes2(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 2) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes3(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 3) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes4(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 4) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes5(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 5) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes6(sectionSelector, filmes) {
+     const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 6) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
+    function gerarFilmes7(sectionSelector, filmes) {
+      const container = document.querySelector(
+        sectionSelector + " .carrossel"
+      );
+      filmes.forEach((filme) => {
+        if (filme.categoria == 7) {
+          const div = document.createElement("div");
+          div.className = "filme";
+          div.innerHTML = `
+      <img src="${filme.imagem}" alt="${filme.titulo
+            }" onclick='abrirModal(${JSON.stringify(filme)})' />
+      <div class="filme-info">
+        <strong>${filme.titulo}</strong><br/>
+        ${filme.ano} • ${filme.classificacao}
+      </div>`;
+          container.appendChild(div);
+        }
+
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
-      gerarFilmes("section:nth-of-type(1)", filmesAcao);
-      gerarFilmes("section:nth-of-type(2)", filmesFiccao);
-      gerarFilmes("section:nth-of-type(3)", filmesDrama);
+      gerarFilmes("section:nth-of-type(1)", filmes);
+      gerarFilmes1("section:nth-of-type(2)", filmes);
+      gerarFilmes2("section:nth-of-type(3)", filmes);
+      gerarFilmes3("section:nth-of-type(4)", filmes);
+      gerarFilmes4("section:nth-of-type(5)", filmes);
+      gerarFilmes5("section:nth-of-type(6)", filmes);
+      gerarFilmes6("section:nth-of-type(7)", filmes);
+      gerarFilmes7("section:nth-of-type(8)", filmes);
     });
   </script>
 </body>

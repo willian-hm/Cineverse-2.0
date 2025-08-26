@@ -477,3 +477,9 @@ input[type="submit"] {
   color: #fff;
 }
 
+
+#genreSelect {
+  width: 80%;
+  margin: 40px auto;
+  align-items: center;
+}

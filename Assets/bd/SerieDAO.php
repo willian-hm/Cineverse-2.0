@@ -48,4 +48,5 @@ class SerieDAO
         $serie = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $serie;
     }
+    
 }
