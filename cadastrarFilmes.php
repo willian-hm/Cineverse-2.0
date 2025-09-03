@@ -37,10 +37,10 @@
             <form action="Assets/bd/cadastroFilme.php" method="POST" enctype="multipart/form-data">
 
                 <label for="titulo">Título</label>
-                <input type="text" name="titulo" id="titulo" placeholder="Título" required>
+                <input type="text" name="titulo" id="titulo" placeholder="Título" autocomplete="off" required>
 
                 <label for="ano">Ano de Lançamento</label>
-                <input type="number" name="ano" id="ano" placeholder="Ano" required>
+                <input type="number" name="ano" id="ano" placeholder="Ano" autocomplete="off" required>
 
                 <label for="idclassificacao">Classificação Indicativa</label>
                 <select name="idclassificacao" id="idclassificacao">
@@ -72,16 +72,16 @@
                 <input type="file" name="imagem" id="imagem" placeholder="Banner" required>
 
                 <label for="diretor">Diretor</label>
-                <input type="text" name="diretor" id="diretor" placeholder="Diretor" required>
+                <input type="text" name="diretor" id="diretor" autocomplete="off" placeholder="Diretor" required>
 
                 <label for="elenco">Elenco</label>
-                <input type="text" name="elenco" id="elenco" placeholder="elenco" required>
+                <input type="text" name="elenco" id="elenco" autocomplete="off" placeholder="elenco" required>
 
                 <label for="oscar">Quantidade de Oscar</label>
-                <input type="text" name="oscar" id="oscar" placeholder="Prêmios/Oscar" required>
+                <input type="text" name="oscar" id="oscar" autocomplete="off" placeholder="Prêmios/Oscar" required>
 
                 <label for="trailer">Link do trailer da Filme</label>
-                <input type="text" name="trailer" id="trailer" placeholder="Trailer" required>
+                <input type="text" name="trailer" id="trailer" autocomplete="off" placeholder="Trailer" required>
 
                 <input type="submit" value="Cadastrar Filme">
             </form>

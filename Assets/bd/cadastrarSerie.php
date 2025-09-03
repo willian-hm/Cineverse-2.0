@@ -3,4 +3,4 @@ require_once "serieDAO.php";
 
 SerieDAO::cadastrarSerie($_POST);
 
-header("location: ../../cineverse.php");
+header("location: ../../cadastrarSeries.php");
