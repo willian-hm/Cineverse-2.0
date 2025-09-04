@@ -187,7 +187,7 @@
 
     function scrollCarrossel(botao, direcao) {
       const container = botao.parentElement.querySelector(".carrossel");
-      const larguraItem = container.querySelector(".filme").offsetWidth + 32;
+      const larguraItem = container.querySelector(".filme").offsetWidth + 1000;
       container.scrollBy({
         left: larguraItem * direcao,
         behavior: "smooth",
