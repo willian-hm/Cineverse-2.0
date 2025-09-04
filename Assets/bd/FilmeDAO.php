@@ -37,7 +37,12 @@ class FilmeDAO
     public static function listarFilmes()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT * FROM filme";
+         $sql = "SELECT f.*, 
+                   c.nomeclassificacao AS classificacao, 
+                   cat.nomecategoria AS categoria
+            FROM filme f
+            INNER JOIN classificacao c ON f.idclassificacao = c.idclassificacao
+            INNER JOIN categoria cat ON f.idcategoria = cat.idcategoria";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         $filme = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +52,13 @@ class FilmeDAO
     public static function listarFilmesComOscar()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT * FROM filme WHERE oscar > 0";
+         $sql = "SELECT f.*, 
+                   c.nomeclassificacao AS classificacao, 
+                   cat.nomecategoria AS categoria
+            FROM filme f
+            INNER JOIN classificacao c ON f.idclassificacao = c.idclassificacao
+            INNER JOIN categoria cat ON f.idcategoria = cat.idcategoria
+            WHERE f.oscar > 0";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         $filmeComOscar = $stmt->fetchAll(PDO::FETCH_ASSOC);

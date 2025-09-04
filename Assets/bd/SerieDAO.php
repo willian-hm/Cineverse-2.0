@@ -42,7 +42,12 @@ class SerieDAO
     public static function listarSeries()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT * FROM serie";
+         $sql = "SELECT s.*, 
+                   c.nomeclassificacao AS classificacao, 
+                   cat.nomecategoria AS categoria
+            FROM serie s
+            INNER JOIN classificacao c ON s.idclassificacao = c.idclassificacao
+            INNER JOIN categoria cat ON s.idcategoria = cat.idcategoria";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         $serie = $stmt->fetchAll(PDO::FETCH_ASSOC);

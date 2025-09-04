@@ -237,8 +237,9 @@
                   {
           titulo: "<?= $filme['titulo'] ?>",
           ano: <?= $filme['ano'] ?>,
-          classificacao: "<?= $filme['idclassificacao'] ?>",
+          classificacao: "<?= $filme['classificacao'] ?>",
           categoria: "<?= $filme['idcategoria'] ?>",
+          categorianome: "<?=$filme['categoria'] ?>",
           imagem: "Assets/bd/uploads/" + "<?= $filme['imagem'] ?>",
           diretor: "<?= $filme['diretor'] ?>",
           elenco: "<?= $filme['elenco'] ?>",
@@ -257,7 +258,7 @@
         "modal-info"
       ).textContent = `${filme.ano} • ${filme.classificacao}`;
       document.getElementById("modal-categoria").textContent =
-        "Categoria: " + filme.categoria;
+        "Categoria: " + filme.categorianome;
       if (filme.temporadas !== undefined && filme.episodios !== undefined) {
         document.getElementById("modal-temporadas").textContent =
           `Temporadas: ${filme.temporadas} • Episódios: ${filme.episodios}`;

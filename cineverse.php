@@ -136,8 +136,8 @@
             {
           titulo: "<?= $filmeComOscar['titulo'] ?>",
           ano: <?= $filmeComOscar['ano'] ?>,
-          classificacao: "<?= $filmeComOscar['idclassificacao'] ?>",
-          categoria: "<?= $filmeComOscar['idcategoria'] ?>",
+          classificacao: "<?= $filmeComOscar['classificacao'] ?>",
+          categoria: "<?= $filmeComOscar['categoria'] ?>",
           imagem: "Assets/bd/uploads/"+"<?= $filmeComOscar['imagem'] ?>",
           diretor: "<?= $filmeComOscar['diretor'] ?>",
           elenco: "<?= $filmeComOscar['elenco'] ?>",
