@@ -44,127 +44,31 @@
     ?>
   </select>
 
+  <?php
+  require_once "Assets/bd/CategoriaDAO.php";
+  $categorias = CategoriaDAO::listar();
+  ?>
+
   <section class="todos">
     <h2>Todas as Séries</h2>
     <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
+      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">&#10094;</button>
+      <div class="carrossel"></div>
+      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">&#10095;</button>
     </div>
   </section>
 
-  <section class="1">
-    <h2>Terror</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
+  <?php foreach ($categorias as $categoria): ?>
+    <section data-categoria="<?= $categoria['idcategoria'] ?>">
+      <h2><?= $categoria['nomecategoria'] ?></h2>
+      <div class="carrossel-container">
+        <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">&#10094;</button>
+        <div class="carrossel"></div>
+        <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">&#10095;</button>
       </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
+    </section>
+  <?php endforeach; ?>
 
-  <section class="2">
-    <h2>Drama</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section class="3">
-    <h2>Comédia</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section class="4">
-    <h2>Aventura</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section class="5">
-    <h2>Ficção</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section class="6">
-    <h2>Ação</h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
-
-  <section class="7">
-    <h2>
-      Romance
-    </h2>
-    <div class="carrossel-container">
-      <button class="seta setaEsquerda" onclick="scrollCarrossel(this, -1)">
-        &#10094;
-      </button>
-      <div class="carrossel">
-
-      </div>
-      <button class="seta setaDireita" onclick="scrollCarrossel(this, 1)">
-        &#10095;
-      </button>
-    </div>
-  </section>
 
 
   <div id="modal" class="modal">
@@ -238,7 +142,7 @@
 
       foreach ($series as $serie) {
         ?>
-                {
+                      {
           titulo: "<?= $serie['titulo'] ?>",
           ano: <?= $serie['ano'] ?>,
           classificacao: "<?= $serie['classificacao'] ?>",
@@ -302,183 +206,37 @@
       });
     }
 
-    function gerarSeries(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        const div = document.createElement("div");
-        div.className = "filme";
-        div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-          }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-        container.appendChild(div);
-      });
-    }
-
-    function gerarSeries1(sectionSelector, series) {
-
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
+    function gerarSeries(sectionSelector, series, categoria = null) {
+      const container = document.querySelector(sectionSelector + " .carrossel");
+      container.innerHTML = "";
 
       series.forEach((filme) => {
-        if (filme.categoria == 1) {
+        if (categoria === null || filme.categoria == categoria) {
           const div = document.createElement("div");
           div.className = "filme";
           div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
+          <img src="${filme.imagem}" alt="${filme.titulo}"
+               onclick='abrirModal(${JSON.stringify(filme)})' />
+          <div class="filme-info">
+            <strong>${filme.titulo}</strong><br/>
+            ${filme.ano} • ${filme.classificacao}
+          </div>`;
           container.appendChild(div);
         }
-
-      });
-    }
-
-    function gerarSeries2(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 2) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
-      });
-    }
-
-    function gerarSeries3(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 3) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
-      });
-    }
-
-    function gerarSeries4(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 4) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
-      });
-    }
-
-    function gerarSeries5(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 5) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
-      });
-    }
-
-    function gerarSeries6(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 6) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
-      });
-    }
-
-    function gerarSeries7(sectionSelector, series) {
-      const container = document.querySelector(
-        sectionSelector + " .carrossel"
-      );
-      series.forEach((filme) => {
-        if (filme.categoria == 7) {
-          const div = document.createElement("div");
-          div.className = "filme";
-          div.innerHTML = `
-      <img src="${filme.imagem}" alt="${filme.titulo
-            }" onclick='abrirModal(${JSON.stringify(filme)})' />
-      <div class="filme-info">
-        <strong>${filme.titulo}</strong><br/>
-        ${filme.ano} • ${filme.classificacao}
-      </div>`;
-          container.appendChild(div);
-        }
-
       });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      gerarSeries("section:nth-of-type(1)", series);
-      gerarSeries1("section:nth-of-type(2)", series);
-      gerarSeries2("section:nth-of-type(3)", series);
-      gerarSeries3("section:nth-of-type(4)", series);
-      gerarSeries4("section:nth-of-type(5)", series);
-      gerarSeries5("section:nth-of-type(6)", series);
-      gerarSeries6("section:nth-of-type(7)", series);
-      gerarSeries7("section:nth-of-type(8)", series);
+      
+      gerarSeries("section.todos", series);
+
+      
+      document.querySelectorAll("section[data-categoria]").forEach(section => {
+        const idCategoria = section.getAttribute("data-categoria");
+        gerarSeries(`section[data-categoria="${idCategoria}"]`, series, idCategoria);
+      });
     });
+
   </script>
 </body>
 
